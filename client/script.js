@@ -34,6 +34,34 @@ jQuery(function($){
 			$("#game").css("display", "block");
 			if (Player['status'] == host)
 				$("#nbJoueurs").css("display", "block");
+		deck();
+
+		$("#deck .carte").bind("click", function(){
+			this.remove();
+			deck();
+		});
+
+
 		}
 	});
 });
+
+
+function deck(){
+	var nbcartes = $('#deck > *').length;
+	console.log(nbcartes);
+
+	if (nbcartes >= 14){
+		var margin = ((nbcartes * 70) - 940) / (nbcartes - 1);
+		console.log(margin);
+		$(".carte").css("margin-left", "-"+margin+"px");
+	}
+	else{
+		$(".carte").css("margin", "0");	
+		$("#deck").css("width", (nbcartes*70)+"px")
+	}
+}
+
+
+// ((nbcartes * 70) - 940) / (nbcartes - 1)
+//pas de marge sur la 1er

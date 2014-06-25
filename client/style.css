@@ -29,7 +29,7 @@ section {
 }
 
 #game {
-/*	display: none;*/
+	display: none;
 }
 
 #game #nbJoueurs {
@@ -123,6 +123,16 @@ label {
 
 #deck {
 	height: 130px;
+	width: 941px;
+	margin:	0 auto;
 }
 
-img.carte {}
+img.carte:first-child {
+	margin: 0 !important;
+}
+
+img.carte {
+	display: block;
+	float: left;
+	cursor: pointer;
+}
