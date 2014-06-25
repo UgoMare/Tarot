@@ -1,0 +1,88 @@
+<html>
+<head>
+	<title>Tarot</title>
+	<script src="http://localhost:3000/socket.io/socket.io.js"></script>
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+	<script type="text/javascript" src="script.js"></script>
+	<link rel="stylesheet" type="text/css" href="style.css">
+</head>
+
+<body>
+
+<div id="wrapper">
+<header>
+	<img src="img/logo.png" title="tarot">
+</header>
+<section id="register">
+<div class="banniere">Commencez une partie de tarot entre Frenchies</div>
+
+<div id="form">
+	<label>Entrez votre pseudo</label> : <input type="text" name="pseudo" /><br />
+	<div class="bouton" id="jouer">Jouer</div>
+</div>
+
+</section>
+
+
+<section id="game">
+	<div id="players">
+		<div class="player" id="1">
+			<div class="name">Ugo</div>
+			<div class="carte"></div>
+		</div>
+		<div class="player" id="2">
+			<div class="name">Maite</div>
+			<div class="carte"></div>
+		</div>
+		<div class="player" id="3">
+			<div class="name">Julie</div>
+			<div class="carte"></div>
+		</div>
+		<div class="player" id="4">
+			<div class="name">Meli</div>
+			<div class="carte"></div>
+		</div>
+		<div class="player" id="5">
+			<div class="name">Lorette</div>
+			<div class="carte"></div>
+		</div>
+	</div>
+	
+
+	<div id="deck">
+		<img class="carte" src="img/Excuse.jpeg">
+		<img class="carte" src="img/Excuse.jpeg">
+		<img class="carte" src="img/Excuse.jpeg">
+		<img class="carte" src="img/Excuse.jpeg">
+		<img class="carte" src="img/Excuse.jpeg">
+		<img class="carte" src="img/Excuse.jpeg">
+		<img class="carte" src="img/Excuse.jpeg">
+		<img class="carte" src="img/Excuse.jpeg">
+		<img class="carte" src="img/Excuse.jpeg">
+		<img class="carte" src="img/Excuse.jpeg">
+		<img class="carte" src="img/Excuse.jpeg">
+		<img class="carte" src="img/Excuse.jpeg">
+		<img class="carte" src="img/Excuse.jpeg">
+		<img class="carte" src="img/Excuse.jpeg">
+		<img class="carte" src="img/Excuse.jpeg">
+		<img class="carte" src="img/Excuse.jpeg">
+		<img class="carte" src="img/Excuse.jpeg">
+		<img class="carte" src="img/Excuse.jpeg">
+		<img class="carte" src="img/Excuse.jpeg">
+		<img class="carte" src="img/Excuse.jpeg">
+		<img class="carte" src="img/Excuse.jpeg">
+		<img class="carte" src="img/Excuse.jpeg">
+		<img class="carte" src="img/Excuse.jpeg">
+		<img class="carte" src="img/Excuse.jpeg">
+	</div>
+
+	<div class="banniere">Choisissez le nombre de joueurs</div>
+	<div id="nbJoueurs">
+		<div class="bouton boutonJoueurs" id="4">4 joueurs</div>
+		<div class="bouton boutonJoueurs" id="5">5 Joueurs</div>
+	</div>
+</section>
+</div>
+
+</body>
+</html>

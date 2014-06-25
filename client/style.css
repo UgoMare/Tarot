@@ -1,0 +1,128 @@
+body {
+	background: url(img/body.jpg) no-repeat center top fixed;
+	background-color: #1e150e;
+	color: #666;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	margin: 0;
+}
+
+#wrapper {
+	width: 980px;
+	margin: 0 auto;
+}
+
+header {
+	font-size: 20px;
+	color: white;
+}
+
+section {
+	padding: 12px 0;
+	border-radius: 5px;
+	border:	solid 1px black;
+	background-color: #094426;
+}
+
+#register {
+
+}
+
+#game {
+/*	display: none;*/
+}
+
+#game #nbJoueurs {
+	display: none;
+	text-align: center;
+}
+
+.banniere {
+	padding: 15px 4px 4px 0px;
+	font-size: 24px;
+	font-weight: bold;
+	color: #ffd669;
+	margin-top: 0px;
+	margin-bottom: 9px;
+	text-align: center;
+	height: 100px;
+	width: 975px;
+/*	position: absolute;*/
+	background: url('img/banniere.png') top center no-repeat;
+}
+
+#form {
+	width: 352px;
+	margin: 0 auto;
+	text-align: center;
+	color: #ffd669;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 16px;
+}
+
+
+label {
+	color: #ffd669;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 16px;
+}
+
+.bouton {
+	margin-top: 16px;
+	display: inline-block;
+	background-color: #ae0c0c;
+	color: #ffd669;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size:	16px;
+	cursor: pointer;
+	padding: 6px 10;
+
+}
+
+.carte {
+	width: 70px;
+	height: 129px;
+	display: inline-block;
+}
+
+#players {
+	text-align: center;
+	margin: 20px 0;
+}
+
+.player {
+	display: inline-block;
+	width: 186px;
+	height: 97px;
+	background: url("img/cadre.gif");
+	background-size: cover;
+}
+
+.player.prise {
+	background: url("img/cadre2.gif");
+}
+
+.player .name {
+	width: 106px;
+	vertical-align: middle;
+	text-overflow: ellipsis;
+	position: relative;
+	top: 14px;
+	text-align: center;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 20px;
+}
+
+.player .carte {
+	background-image: url("img/Excuse.jpeg");
+	position: relative;
+	float: right;
+	top: -40px;
+	right: 10px;
+}
+
+#deck {
+	height: 130px;
+}
+
+img.carte {}
