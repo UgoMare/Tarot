@@ -43,7 +43,7 @@ section {
 	font-weight: bold;
 	color: #ffd669;
 	margin-top: 0px;
-	margin-bottom: 9px;
+/*	margin-bottom: 9px;*/
 	text-align: center;
 	height: 100px;
 	width: 975px;
@@ -77,6 +77,10 @@ label {
 	cursor: pointer;
 	padding: 6px 10;
 
+}
+
+.boutonJoueurs {
+	margin: 0;
 }
 
 .carte {
@@ -114,7 +118,7 @@ label {
 }
 
 .player .carte {
-	background-image: url("img/Excuse.jpeg");
+	background-image: url("img/cartes/Excuse.jpeg");
 	position: relative;
 	float: right;
 	top: -40px;
@@ -122,6 +126,7 @@ label {
 }
 
 #deck {
+	display: none;
 	height: 130px;
 	width: 941px;
 	margin:	0 auto;
