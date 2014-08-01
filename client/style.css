@@ -18,7 +18,7 @@ header {
 }
 
 section {
-	padding: 12px 0;
+	padding: 15px 0;
 	border-radius: 5px;
 	border:	solid 1px black;
 	background-color: #094426;
@@ -49,6 +49,7 @@ section {
 	width: 975px;
 /*	position: absolute;*/
 	background: url('img/banniere.png') top center no-repeat;
+	line-height: 33px;
 }
 
 #form {
@@ -94,11 +95,30 @@ label {
 	margin: 20px 0;
 }
 
+.player.selected::before {
+	content: "";
+	display: block;
+	width: 50px;
+	height: 27px;
+	background: url("img/selecteur.png") no-repeat;
+	position: absolute;
+	margin-top: -30px;
+	margin-left: 34px;
+}
+
+/*#selecteur {
+	position: absolute;
+	width: 50px;
+	height: 27px;
+	background: url("img/selecteur.png") no-repeat;
+}*/
+
 .player {
 	display: inline-block;
 	width: 186px;
 	height: 97px;
 	background: url("img/cadre.gif");
+	-webkit-background-size: cover cover;
 	background-size: cover;
 }
 
@@ -107,29 +127,103 @@ label {
 }
 
 .player .name {
-	width: 106px;
+	width: 95px;
 	vertical-align: middle;
 	text-overflow: ellipsis;
 	position: relative;
 	top: 14px;
 	text-align: center;
 	font-family: Arial, Helvetica, sans-serif;
-	font-size: 20px;
+	font-size: 18px;
+	left:-35px;
+	display: inline-block;
+}
+
+.player .status {
+	width: 95px;
+	position: relative;
+	top: 16px;
+	height:11px;
+	display: inline-block;
+	text-transform: capitalize;
 }
 
 .player .carte {
 	background-image: url("img/cartes/Excuse.jpeg");
 	position: relative;
 	float: right;
-	top: -40px;
+	top: -38px;
 	right: 10px;
+	content: '';
 }
+
+.player .carte .layer {
+	position:absolute;
+	cursor:pointer;
+}
+
 
 #deck {
 	display: none;
 	height: 130px;
 	width: 941px;
 	margin:	0 auto;
+}
+
+#bas {
+	height: 185px;
+	width: 100%;
+	margin-top: 20px;
+/*	display: none;*/
+}
+
+
+#infosPartie, #chatbox {
+	width: 487px;
+	height:168px;
+/*	padding-top: 20px;*/
+	display: block;
+	float:left;
+}
+
+.titleinfo {
+	margin: 0;
+	width: 486px;
+	height: 26px;
+	font-size: 16px;
+	line-height: 26px;
+	text-align: center;
+	color: #ffd669;
+/*	display: inline-block;*/
+}
+
+#choix, #chien, #appel {
+	height: 142px;
+	display:none;
+}
+
+#choix {
+	margin: 0 92px;
+	text-align: center;
+}
+
+#chien {
+	display:block;
+	width: 420px;
+	margin: 0px auto;
+}
+
+#appel {
+	width: 282px;
+	margin: 0px auto;
+}
+
+
+#chat {
+	height: 100%;
+	width: 100%;
+	display: inline-block;
+	background-color: black;
 }
 
 img.carte:first-child {
@@ -140,4 +234,5 @@ img.carte {
 	display: block;
 	float: left;
 	cursor: pointer;
+	content:'';
 }

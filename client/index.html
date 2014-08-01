@@ -2,7 +2,7 @@
 <head>
 	<title>Tarot</title>
 	<script src="http://localhost:3000/socket.io/socket.io.js"></script>
-	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+	<script src="jquery-1.11.1.min.js"></script>
 	<script type="text/javascript" src="script.js"></script>
 	<link rel="stylesheet" type="text/css" href="style.css">
 </head>
@@ -14,7 +14,7 @@
 	<img src="img/logo.png" title="tarot">
 </header>
 <section id="register">
-<div class="banniere">Commencez une partie de tarot entre Frenchies</div>
+<div class="banniere">Commencer une partie de tarot entre Frenchies</div>
 
 <div id="form">
 	<label>Entrez votre pseudo</label> : <input type="text" name="pseudo" /><br />
@@ -26,33 +26,39 @@
 
 <section id="game">
 	<div id="players">
-	<!-- 	<div class="player" id="1">
+<!-- 		<div class="player" id="1">
 			<div class="name">Ugo</div>
+			<div class="status">Prend</div>
 			<div class="carte"></div>
 		</div>
-		<div class="player" id="2">
+		<div class="player selected" id="2">
 			<div class="name">Maite</div>
+			<div class="status">Passe</div>
 			<div class="carte"></div>
 		</div>
 		<div class="player" id="3">
 			<div class="name">Julie</div>
+			<div class="status">Garde cent</div>
 			<div class="carte"></div>
 		</div>
 		<div class="player" id="4">
 			<div class="name">Meli</div>
+			<div class="status">Garde contre</div>
 			<div class="carte"></div>
 		</div>
 		<div class="player" id="5">
 			<div class="name">Lorette</div>
+			<div class="status"></div>
 			<div class="carte"></div>
-		</div> -->
+		</div>
+ -->
 	</div>
-	
+
 
 	<div class="banniere">Choisissez le nombre de joueurs</div>
-	
+
 	<div id="deck">
-	<!-- <img class="carte" id="1" src="img/cartes/Excuse.jpeg">
+<!-- 	<img class="carte" id="1" src="img/cartes/Excuse.jpeg">
 		<img class="carte" id="2" src="img/cartes/1.jpeg">
 		<img class="carte" id="3" src="img/cartes/2.jpeg">
 		<img class="carte" id="4" src="img/cartes/3.jpeg">
@@ -64,8 +70,8 @@
 		<img class="carte" id="10" src="img/cartes/9.jpeg">
 		<img class="carte" id="11" src="img/cartes/10.jpeg">
 		<img class="carte" id="12" src="img/cartes/11.jpeg">
-		<img class="carte" id="13" src="img/cartes/12.jpeg">
-		<img class="carte" id="14" src="img/cartes/13.jpeg">
+		<img class="carte" id="13" src="img/cartes/12.jpeg"> -->
+<!-- 		<img class="carte" id="14" src="img/cartes/13.jpeg">
 		<img class="carte" id="15" src="img/cartes/14.jpeg">
 		<img class="carte" id="16" src="img/cartes/15.jpeg">
 		<img class="carte" id="17" src="img/cartes/16.jpeg">
@@ -74,14 +80,44 @@
 		<img class="carte" id="20" src="img/cartes/19.jpeg">
 		<img class="carte" id="21" src="img/cartes/20.jpeg">
 		<img class="carte" id="22" src="img/cartes/21.jpeg">
-		<img class="carte" id="23" src="img/cartes/5h.jpeg">
-		<img class="carte" id="24" src="img/cartes/2d.jpeg"> -->
+		<img class="carte" id="23" src="img/cartes/h5.jpeg">
+		<img class="carte" id="24" src="img/cartes/d2.jpeg"> -->
 	</div>
 
 	<div id="nbJoueurs">
-		<div class="bouton boutonJoueurs" id="4">4 joueurs</div>
-		<div class="bouton boutonJoueurs" id="5">5 Joueurs</div>
+		<div class="bouton boutonJoueurs" id="4joueurs">4 joueurs</div>
+		<div class="bouton boutonJoueurs" id="5joueurs">5 Joueurs</div>
 	</div>
+
+<div id="bas">
+
+	<div id="infosPartie">
+		<div class="titleinfo"></div>
+		<div id="choix">
+		<div class="bouton" id="passe">Passe</div>
+		<div class="bouton" id="prend">Prend</div>
+		<div class="bouton" id="garde">Garde</div>
+		<div class="bouton" id="gardesans">Garde Sans</div>
+		<div class="bouton" id="gardecontre">Garde Contre</div>
+
+		</div>
+		<div id="chien">
+		</div>
+		<div id="dernieremain">
+		</div>
+		<div id="appel">
+			<img class="carte layer" id="kc" src="img/cartes/c14.jpeg">
+			<img class="carte" id="kh" src="img/cartes/h14.jpeg">
+			<img class="carte" id="ks" src="img/cartes/s14.jpeg">
+			<img class="carte" id="kd" src="img/cartes/d14.jpeg">
+		</div>
+	</div>
+	<div id="chatbox">
+		<div id="chat">
+		</div>
+	</div>
+</div>
+
 </section>
 </div>
 

@@ -8,7 +8,11 @@ var Users = [],
 Names  = [],
 Chien = [],
 Game = [],
-First = -1;
+First = -1,
+JoueurCourant = -1,
+DejaJoue = 0,
+TypeJeu = {passe:1, prend:2, garde:3, gardesans:4, gardecontre:5};
+Appels = {kc: "Tr&eagrave;fle", kh: "Coeur", ks: "Pique", kd: "Carreau"};
 Game['status'] = -1;
 
 const echec = 0,
@@ -26,7 +30,6 @@ io.sockets.on('connection', function(socket){
 			socket.emit('newGame', {status: echec});
 		}
 		else {
-			console.log("new user : "+data['name']);
 			var status  = (Game["status"] == -1 ? host : player);
 			id = Object.keys(Users).length;
 			Users[id] = [];
@@ -36,6 +39,7 @@ io.sockets.on('connection', function(socket){
 			Users[id]['status'] = status;
 			Users[id]['main'] = [];
 			Users[id]['tas'] = [];
+			Users[id]['choix'] = 0;
 			socket.emit('newGame', {game: Game['status'], name: data['name'], status: status, id: id});
 			newPlayer(id);
 		}
@@ -48,7 +52,7 @@ io.sockets.on('connection', function(socket){
 
 	socket.on('nbJoueurs', function(data, callback){
 		console.log("game "+data);
-		Game["status"] = data;
+		Game['status'] = data;
 		Game['chien'] = [];
 		if (data == 4){
 			Game["nbmain"] = 18;
@@ -62,12 +66,22 @@ io.sockets.on('connection', function(socket){
 
 
 
+
 	function randomInt(mini, maxi)
 	{
 	     var nb = mini + (maxi+1-mini)*Math.random();
 	     return Math.floor(nb);
 	}
-	 
+
+
+function newPlayer(id)
+{
+for (var i = 0; i < Object.keys(Users).length; i++) {
+		if (Users[i]['socket'] != socket)
+			Users[i]['socket'].emit('newPlayer', {id: id, name: Users[id]['name']});
+		socket.emit('initPlayer', {id: i, name: Users[i]['name']});
+	}
+}
 	Array.prototype.shuffle = function(n)
 	{
 	     if(!n)
@@ -80,14 +94,6 @@ io.sockets.on('connection', function(socket){
 	          this[n-1] = tmp;
 	          this.shuffle(n-1);
 	     }
-	}
-
-	function newPlayer(id){
-	for (var i = 0; i < Object.keys(Users).length; i++) {
-			if (Users[i]['socket'] != socket)
-				Users[i]['socket'].emit('newPlayer', {id: id, name: Users[id]['name']});
-			socket.emit('initPlayer', {id: i, name: Users[i]['name']});
-		};
 	}
 
 	function sortCartes(cartes){
@@ -120,6 +126,129 @@ io.sockets.on('connection', function(socket){
 	});
 	}
 
+
+	function suivant(){
+		if (JoueurCourant == -1)
+			JoueurCourant = First;
+		else
+			JoueurCourant = (JoueurCourant + 1) % Game['status'];
+	}
+
+	function quiPrend(Joueur){
+
+		Users[Joueur]["socket"].emit('quiPrend');
+		for (var i = 0; i < Object.keys(Users).length; i++){
+			Users[i]["socket"].emit('tour', {joueur: JoueurCourant, banniere: Users[JoueurCourant].name+" fait son annonce !"});
+		}
+		console.log("DejaJoue "+DejaJoue);
+	}
+
+	socket.on("quiPrend", function (data, callback) {
+		console.log("joueur : "+ Users[data['id']].name+" "+data["status"]);
+		Users[data['id']]["choix"] = TypeJeu[data["status"]];
+		DejaJoue = DejaJoue + 1;
+
+		for (var i = 0; i < Object.keys(Users).length; i++){
+			Users[i]["socket"].emit('statusPrise', {id: data['id'], status: data['status']});
+		}
+		if (DejaJoue < Game['status']){
+			suivant();
+			quiPrend(JoueurCourant);
+		}
+		if (DejaJoue == Game['status']){
+			console.log("Chien");
+			Appel();
+		}
+	});
+
+	socket.on('appel', function (data, callback){
+		console.log(data);
+		console.log("Joueur : "+Users[First].name+" appel le Roi de "+Appels[data]);
+		var status = "Roi de "+Appels[data];
+		for (var i = 0; i < Object.keys(Users).length; i++){
+			Users[i]["socket"].emit('tour', {joueur: First, banniere: Users[First].name+" appel le roi de "+Appels[data]});
+			Users[i]["socket"].emit('statusJoueur', {id: First, status: status});
+			Users[i]["socket"].emit('cadrePrise', {id: First});
+		}
+		JouerChien();
+	});
+
+	socket.on('chien', function (data, ccallback) {
+		console.log("la partie commence !");
+		Chien = data;
+		for (var i = 0; i < Game['chien'].length; i++) {
+			Users[First]['main'].push(Game['chien'][i]);
+		}
+
+		console.log("Nouvelle main du joueur avec le chien "+Users[First]['main']);
+		Play();
+	});
+
+	socket.on("play", function () {
+	});
+
+	function Play() {
+		console.log("Game!");
+	}
+
+	function Appel(){
+		Firsttmp = -1;
+		var choix = 0;
+		console.log("appel");
+		for (var i = 0; i < Object.keys(Users).length; i++){
+			if (Users[(First + i) % Game['status']]["choix"] > choix){
+				Firsttmp = ((First + i) % Game['status']);
+				choix = Users[(First + i) % Game['status']]["choix"];
+			}
+		}
+		First = Firsttmp;
+		console.log("choix "+choix+" first "+First);
+		for (var i = 0; i < Object.keys(Users).length; i++){
+			Users[i]["socket"].emit('choix', {joueur: First, choix: choix});
+		}
+
+		if (Game['status'] == 5){
+			console.log("partie a 5");
+			for (var i = 0; i < Object.keys(Users).length; i++){
+				Users[i]["socket"].emit('tour', {joueur: First, banniere: Users[First].name+" fait son appel !"});
+			}
+			Users[First]["socket"].emit('appel');
+		}
+		else {
+			for (var i = 0; i < Object.keys(Users).length; i++){
+				Users[i]["socket"].emit('tour', {joueur: First, banniere: ""});
+			}
+			JouerChien();
+		}
+	}
+
+
+
+	function JouerChien(){
+		console.log("->chien");
+		console.log(Game['chien']);
+		for (var i = 0; i < Object.keys(Users).length; i++){
+			Users[i]["socket"].emit('chien', {id: First, chien: Game['chien']});
+		}
+
+		// First = -1;
+		// var choix = 0;
+
+		// for (var i = 0; i < Object.keys(Users).length; i++){
+		// 	if (Users[i]["choix"] > choix){
+		// 		First = i;
+		// 		choix = Users[i]["choix"];
+		// 	}
+		// }
+
+		// for (var i = 0; i < Object.keys(Users).length; i++){
+		// 	Users[i]["socket"].emit('tour', {joueur: First, banniere: Users[First].name+" fait son annonce !"});
+		// }
+
+	//		console.log("User: "+First+" avec le choix "+choix);
+
+	}
+
 	function Start(){
 	// var cartes = new Array(78);
 
@@ -135,7 +264,6 @@ io.sockets.on('connection', function(socket){
 	for (var i = 0; i < Game['nbmain']/3; i++) {
 		for (var j = 0; j < Game['status']; j++)
 		{
-			console.log(cartes[cur]);
 			Users[(First + j) % Game['status']]['main'].push(cartes[cur]);
 			Users[(First + j) % Game['status']]['main'].push(cartes[cur + 1]);
 			Users[(First + j) % Game['status']]['main'].push(cartes[cur + 2]);
@@ -157,7 +285,8 @@ io.sockets.on('connection', function(socket){
 	// sortCartes(Users[2]['main']);
 	// sortCartes(Users[3]['main']);
 	sortCartes(Game['chien']);
-
+	suivant();
+	quiPrend(First);
 	// console.log(Users[0]['main']);
 	// console.log(Users[1]['main']);
 	// console.log(Users[2]['main']);
@@ -171,4 +300,4 @@ io.sockets.on('connection', function(socket){
 //console.log(cartes[10]);
 
 // Start();
-});		
+});
